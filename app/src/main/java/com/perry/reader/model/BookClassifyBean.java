@@ -92,6 +92,15 @@ public class BookClassifyBean implements Serializable {
             this.icon = icon;
         }
 
+        @Override
+        public String toString() {
+            return "ClassifyBean{" +
+                    "name='" + name + '\'' +
+                    ", bookCount='" + bookCount + '\'' +
+                    ", monthlyCount='" + monthlyCount + '\'' +
+                    ", icon='" + icon + '\'' +
+                    '}';
+        }
     }
 
 

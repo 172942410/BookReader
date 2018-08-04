@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ import butterknife.BindView;
 
 public class ClassifyFragment extends BaseFragment implements IClassifyBook {
 
-
+    private static final String TAG = "ClassifyFragment";
     @BindView(R.id.rv_classify)
     RecyclerView mRvClassify;
     @BindView(R.id.loadinglayout)
@@ -85,7 +86,15 @@ public class ClassifyFragment extends BaseFragment implements IClassifyBook {
         switch (tabName) {
             case "男生":
                 getder = "male";
-                mClassifyBeans.addAll(bookClassifyBean.getMale());
+                List<BookClassifyBean.ClassifyBean> classifyBeanList = bookClassifyBean.getMale();
+                Log.e(TAG,"classifyBeanList:"+classifyBeanList.toString());
+                BookClassifyBean.ClassifyBean classifyBean = new BookClassifyBean.ClassifyBean();
+                classifyBean.setBookCount("未知");
+                classifyBean.setIcon("也没有图标的");
+                classifyBean.setName("情色");
+                classifyBean.setMonthlyCount("这是啥");
+                classifyBeanList.add(0,classifyBean);
+                mClassifyBeans.addAll(classifyBeanList);
                 break;
             case "女生":
                 getder = "female";

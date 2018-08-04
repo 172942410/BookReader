@@ -3,13 +3,16 @@ package com.perry.reader.view.activity.impl;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.perry.reader.R;
+import com.perry.reader.utils.AssetsUtils;
 import com.perry.reader.view.base.BaseActivity;
 import com.perry.reader.view.base.BaseViewPageAdapter;
 import com.perry.reader.view.fragment.impl.BooksInfoFragment;
+import com.perry.reader.view.fragment.impl.YellowBooksFragment;
 import com.perry.reader.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -41,16 +44,27 @@ public class BookListActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        AssetsUtils.init(getApplication());
         mTitleName = getIntent().getStringExtra("titleName");
         mGetder = getIntent().getStringExtra("getder");
         initThemeToolBar(mTitleName);
 
         mFragments = new ArrayList<>();
 
-        for (String type : types) {
-            mFragments.add(BooksInfoFragment.newInstance(mTitleName, mGetder, type));
-        }
 
+        if(!TextUtils.isEmpty(mTitleName)&& mTitleName.equals("情色")){
+            titles = new String[]{"狂暴", "乱伦", "淫乱"};
+            types = new String[]{"kuangbao", "luanlun", "yinluan"};
+//            titles = new String[]{"乱伦"};
+//            types = new String[]{"luanlun"};
+            for (String type : types) {
+                mFragments.add(YellowBooksFragment.newInstance(mTitleName, mGetder, type));
+            }
+        }else{
+            for (String type : types) {
+                mFragments.add(BooksInfoFragment.newInstance(mTitleName, mGetder, type));
+            }
+        }
         mViewpager.setAdapter(new BaseViewPageAdapter(getSupportFragmentManager(), titles, mFragments));
         mViewpager.setOffscreenPageLimit(4);
         mTabStrip.setTitles(titles);
