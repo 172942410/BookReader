@@ -38,7 +38,6 @@ public class YellowBooksInfo extends BaseViewModel {
                     iBookInfo.stopLoading();
                 }
             }
-
             @Override
             public void onSuccess(YellowBookBean yellowBookBean) {
                 Log.e(TAG, "onSuccess: " + yellowBookBean.toString());
@@ -52,7 +51,6 @@ public class YellowBooksInfo extends BaseViewModel {
                 } else {
                     ToastUtils.show("无更多书籍");
                 }
-
             }
         };
         AssetsUtils.getInstance().setParserListener(type, parserListener);

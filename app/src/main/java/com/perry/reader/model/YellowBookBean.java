@@ -50,6 +50,7 @@ public class YellowBookBean implements Serializable {
         public int startpage;
         public int pagecount;
         public int contetindex;
+        public int progress;
 
         @Override
         public String toString() {
@@ -58,6 +59,7 @@ public class YellowBookBean implements Serializable {
                     ", startpage=" + startpage +
                     ", pagecount=" + pagecount +
                     ", contetindex=" + contetindex +
+                    ", progress=" + progress +
                     '}';
         }
     }

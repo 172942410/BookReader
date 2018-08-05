@@ -84,7 +84,7 @@
                     android:layout_marginLeft="3dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="人气"
+                    android:text="页"
                     android:textColor="@color/color_51"
                     android:textSize="11sp"/>
 
@@ -112,7 +112,7 @@
                     android:layout_marginLeft="3dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="读者留存"
+                    android:text="读书进度"
                     android:textColor="@color/color_51"
                     android:textSize="11sp"/>
             </LinearLayout>
