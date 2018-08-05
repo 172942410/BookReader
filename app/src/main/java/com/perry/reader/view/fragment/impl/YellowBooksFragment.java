@@ -85,6 +85,7 @@ public class YellowBooksFragment extends BaseFragment implements IYellowBookInfo
             public void onLoadmore(RefreshLayout refreshlayout) {
                 ++loadPage;
 //                mModel.getBooks(type, titleName, loadPage);
+                stopLoading();
             }
 
             @Override

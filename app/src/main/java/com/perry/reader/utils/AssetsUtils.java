@@ -52,7 +52,7 @@ public class AssetsUtils {
         return instance;
     }
 
-    public void readXMLTask(String fileName){
+    public void readXMLTask(String fileName,ParserListener parserListener){
         if(TextUtils.isEmpty(fileName)){
             return ;
         }
@@ -64,17 +64,11 @@ public class AssetsUtils {
             fileName = "yellow/"+fileName+"/"+fileName+".xml";
 //            fileName = path+"yellow/"+fileName+"/"+fileName+".xml";
         }
-        ThreadPoolProxyFactory.getNormalThreadPoolProxy().execute(new ReadXMLTask(fileName));
+        ThreadPoolProxyFactory.getNormalThreadPoolProxy().execute(new ReadXMLTask(fileName,parserListener));
     }
 
-    ParserListener parserListener;
-    public AssetsUtils setParserListener(ParserListener parserListener) {
-        this.parserListener = parserListener;
-        return this;
-    }
     public void setParserListener(String fileName,ParserListener parserListener) {
-        this.parserListener = parserListener;
-        readXMLTask(fileName);
+        readXMLTask(fileName,parserListener);
     }
     public interface ParserListener {
         /**
@@ -93,16 +87,24 @@ public class AssetsUtils {
     }
     private class ReadXMLTask implements Runnable{
         String fileName;
+        ParserListener parserListener;
         ReadXMLTask(String fileName){
             this.fileName = fileName;
         }
+        ReadXMLTask(String fileName,ParserListener parserListener){
+            this.fileName = fileName;
+            this.parserListener = parserListener;
+        }
+        public void setParserListener(ParserListener parserListener){
+            this.parserListener = parserListener;
+        }
         @Override
         public void run() {
-            readXML(fileName);
+            readXML(fileName,parserListener);
         }
     }
 
-    private void readXML(String fileName){
+    private void readXML(String fileName,ParserListener parserListener){
         XmlPullParser xmlParser = null;
         InputStream inputStream = null;
         try {

@@ -3,21 +3,11 @@ package com.perry.reader.viewmodel.fragment;
 import android.content.Context;
 import android.util.Log;
 
-import com.allen.library.RxHttpUtils;
-import com.allen.library.interceptor.Transformer;
-import com.perry.reader.api.BookService;
-import com.perry.reader.model.BookBean;
 import com.perry.reader.model.YellowBookBean;
 import com.perry.reader.utils.AssetsUtils;
 import com.perry.reader.utils.ToastUtils;
-import com.perry.reader.utils.rxhelper.RxObserver;
-import com.perry.reader.view.fragment.IBookInfo;
 import com.perry.reader.view.fragment.IYellowBookInfo;
 import com.perry.reader.viewmodel.BaseViewModel;
-
-import java.util.List;
-
-import io.reactivex.disposables.Disposable;
 
 
 /**
