@@ -1,7 +1,5 @@
 package com.perry.reader.view.fragment.impl;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,19 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.perry.reader.R;
-import com.perry.reader.model.BookBean;
 import com.perry.reader.model.YellowBookBean;
-import com.perry.reader.view.activity.impl.BookDetailActivity;
-import com.perry.reader.view.adapter.BookInfoAdapter;
+import com.perry.reader.view.activity.impl.YellowReadActivity;
 import com.perry.reader.view.adapter.YellowBookInfoAdapter;
 import com.perry.reader.view.base.BaseFragment;
-import com.perry.reader.view.fragment.IBookInfo;
 import com.perry.reader.view.fragment.IYellowBookInfo;
-import com.perry.reader.viewmodel.fragment.VMBooksInfo;
 import com.perry.reader.viewmodel.fragment.YellowBooksInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -54,6 +46,9 @@ public class YellowBooksFragment extends BaseFragment implements IYellowBookInfo
     List<YellowBookBean.Content> mBookBeans = new ArrayList<>();
     private YellowBookInfoAdapter mBookInfoAdapter;
     private int loadPage = 1;
+
+//    private YellowCollBookBean mCollBookBean;
+//    private YellowBookBean mBookBean;
 
     @Nullable
     @Override
@@ -105,16 +100,22 @@ public class YellowBooksFragment extends BaseFragment implements IYellowBookInfo
         mRvBookinfo.setAdapter(mBookInfoAdapter);
 
         mBookInfoAdapter.setOnItemClickListener((adapter, view, position) -> {
-            Intent intent = new Intent();
-            intent.setClass(mContext, BookDetailActivity.class);
-            intent.putExtra("bookid", mBookBeans.get(position).startpage);
+//            Intent intent = new Intent();
+//            intent.setClass(mContext, BookDetailActivity.class);
+//            intent.putExtra("bookid", mBookBeans.get(position).startpage);
             //TODO 直接跳转阅读页面吧
-            if (android.os.Build.VERSION.SDK_INT > 20) {
-                ImageView imageView = view.findViewById(R.id.book_brief_iv_portrait);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), imageView, "bookImage").toBundle());
-            } else {
-                startActivity(intent);
-            }
+//            if (android.os.Build.VERSION.SDK_INT > 20) {
+//                ImageView imageView = view.findViewById(R.id.book_brief_iv_portrait);
+//                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), imageView, "bookImage").toBundle());
+//            } else {
+//                startActivity(intent);
+//            }
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(YellowReadActivity.EXTRA_COLL_BOOK, mBookBeans.get(position));
+            bundle.putBoolean(YellowReadActivity.EXTRA_IS_COLLECTED, false);
+            startActivity(YellowReadActivity.class, bundle);
+
         });
 
     }

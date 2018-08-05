@@ -51,6 +51,9 @@
             android:name=".view.activity.impl.ReadActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.activity.impl.YellowReadActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.activity.impl.BookListActivity"
             android:screenOrientation="portrait" />
         <activity

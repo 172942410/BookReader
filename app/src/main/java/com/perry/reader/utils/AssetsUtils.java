@@ -220,6 +220,9 @@ public class AssetsUtils {
                                     });
 
                                 }
+                            }else if( endTag.equals("content")){
+                                //写入一个id吧
+                                content.id = content.startpage+""+content.pagecount+""+content.contetindex+"";
                             }
                             break;
                         default:

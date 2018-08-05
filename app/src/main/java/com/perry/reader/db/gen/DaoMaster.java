@@ -26,6 +26,7 @@ public class DaoMaster extends AbstractDaoMaster {
         CollBookBeanDao.createTable(db, ifNotExists);
         DownloadTaskBeanDao.createTable(db, ifNotExists);
         UserBeanDao.createTable(db, ifNotExists);
+        YellowCollBookBeanDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -35,6 +36,7 @@ public class DaoMaster extends AbstractDaoMaster {
         CollBookBeanDao.dropTable(db, ifExists);
         DownloadTaskBeanDao.dropTable(db, ifExists);
         UserBeanDao.dropTable(db, ifExists);
+        YellowCollBookBeanDao.dropTable(db, ifExists);
     }
 
     /**
@@ -58,6 +60,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(CollBookBeanDao.class);
         registerDaoClass(DownloadTaskBeanDao.class);
         registerDaoClass(UserBeanDao.class);
+        registerDaoClass(YellowCollBookBeanDao.class);
     }
 
     public DaoSession newSession() {

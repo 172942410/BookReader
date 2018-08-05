@@ -1,6 +1,6 @@
 package com.perry.reader.model;
 import android.util.Log;
-
+import com.perry.reader.db.entity.YellowCollBookBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +46,14 @@ public class YellowBookBean implements Serializable {
         /**
          *
          */
+        public String id;
         public String name;
         public int startpage;
         public int pagecount;
         public int contetindex;
         public int progress;
+
+        public YellowCollBookBean mCollBookBean;
 
         @Override
         public String toString() {
@@ -60,6 +63,7 @@ public class YellowBookBean implements Serializable {
                     ", pagecount=" + pagecount +
                     ", contetindex=" + contetindex +
                     ", progress=" + progress +
+                    ", mCollBookBean=" + mCollBookBean +
                     '}';
         }
     }
