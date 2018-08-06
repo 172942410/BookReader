@@ -20,7 +20,7 @@ import java.util.List;
 public class YellowCollBookBean implements Serializable {
     private static final long serialVersionUID = 56423411312L;
     @Id
-    private String yellowId;//如果是本地文件，那么id为所在的地址
+    private String yellowId;//如果是本地文件，那么id为所在的地址 就是asstes下的文件的绝对路径
 
     private String title;
     private String author;
@@ -38,7 +38,7 @@ public class YellowCollBookBean implements Serializable {
     //是否更新或未阅读
     private boolean isUpdate = true;
     //是否是本地文件
-    private boolean isLocal = false;
+    private boolean isLocal = true;
     @ToMany(referencedJoinProperty = "bookId")
     private List<BookChapterBean> bookChapterList;
     /** Used to resolve relations */

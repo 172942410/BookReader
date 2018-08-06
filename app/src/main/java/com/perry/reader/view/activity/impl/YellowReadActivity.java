@@ -206,7 +206,7 @@ public class YellowReadActivity extends BaseActivity implements IBookChapters {
 //            mCtvAddbook.setText("加入书架");
 //        }
         if (mCollBook == null) {
-            mCollBook = content.mCollBookBean;
+            mCollBook = content.getCollBookBean();
         }
 //        mCollBook = (YellowCollBookBean) getIntent().getSerializableExtra(EXTRA_COLL_BOOK);
         isCollected = getIntent().getBooleanExtra(EXTRA_IS_COLLECTED, false);

@@ -23,9 +23,9 @@ public class AssetsUtils {
     private static final String TAG = "AssetsUtils";
     private static AssetsUtils instance;
     private static Application application;
-    AssetManager assetManager;
-    String path = "file:///android_asset/";//file:///android_asset/文件名
-    Handler handler;
+    private AssetManager assetManager;
+//    private String asstesPathStart = "file:///android_asset/";//file:///android_asset/文件名
+    private Handler handler;
     private AssetsUtils(){
         handler = new Handler();
         checkInitialize();
@@ -52,6 +52,64 @@ public class AssetsUtils {
         return instance;
     }
 
+    public InputStream open(String fileName) {
+//        if(fileName.startsWith(asstesPathStart)){
+//            fileName = fileName.substring(asstesPathStart.length());
+//        }
+        InputStream inputStream = null;
+        try {
+            inputStream = assetManager.open(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputStream;
+    }
+
+    public AssetManager getAssetManager(){
+        return assetManager;
+    }
+    /**
+     * 判断assets下的某个路径中是否存在 文件名
+     * @param filePath assets 某个文件的绝对路径
+     * @return false 不存在 ; true 存在 ;
+     */
+    public boolean isFileExists(String filePath){
+//        if(!filePath.startsWith(asstesPathStart)){
+//            return false;
+//        }
+        String pathSplit[]  = filePath.split("\\/");
+        String fileName = pathSplit[pathSplit.length-1];
+        String path = filePath.substring(0,filePath.length()-fileName.length());
+        return isFileExists(path,fileName);
+    }
+    /**
+     * 判断assets下的某个路径中是否存在 文件名
+     * @param path assets 某个文件夹的路径
+     * @param fileName 文件名
+     * @return false 不存在 ; true 存在 ;
+     */
+    public boolean isFileExists (String path,String fileName){
+//        if(path.startsWith(asstesPathStart)){
+//            path = path.substring(asstesPathStart.length(),path.length()-1);
+//        }
+        if(TextUtils.isEmpty(fileName)){
+            return false;
+        }
+        String []name = null;
+        try {
+             name = assetManager.list(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(name != null){
+            for(int i=0;i<name.length;i++){
+                if(fileName.equals(name[i])){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     public void readXMLTask(String fileName,ParserListener parserListener){
         if(TextUtils.isEmpty(fileName)){
             return ;
@@ -204,7 +262,8 @@ public class AssetsUtils {
                                 content.pagecount = Integer.parseInt(xmlText);
                             }
                             else if(xmlName.equals("startpage")){
-                                content.startpage = Integer.parseInt(xmlText);
+//                                content.startpage = Integer.parseInt(xmlText);
+                                content.startpage = xmlText;
                             }
                             break;
                         case XmlPullParser.END_TAG:
@@ -221,8 +280,20 @@ public class AssetsUtils {
 
                                 }
                             }else if( endTag.equals("content")){
-                                //写入一个id吧
-                                content.id = content.startpage+""+content.pagecount+""+content.contetindex+"";
+                                //写入一个id吧 绝对路径吧
+//                                content.id = content.startpage+""+content.pagecount+""+content.contetindex+"";
+                                String temp = "";
+                                if(fileName.endsWith(".xml")){
+                                     String fileSplit[] = fileName.split("\\/");
+                                     String last = fileSplit[fileSplit.length-1];
+//                                     if(fileName.startsWith(asstesPathStart)){
+//                                         temp = fileName.substring(asstesPathStart.length(), fileName.length() - last.length());
+//                                     }else {
+                                         temp = fileName.substring(0, fileName.length() - last.length());
+//                                     }
+                                }
+//                                content.id = asstesPathStart+temp+"txt/"+content.startpage+".txt";
+                                content.id = temp+"txt/"+content.startpage+".txt";
                             }
                             break;
                         default:

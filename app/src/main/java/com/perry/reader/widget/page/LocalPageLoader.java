@@ -128,7 +128,7 @@ public class LocalPageLoader extends PageLoader {
     //采用的是随机读取
     private void loadBook(File bookFile) throws IOException {
         //获取文件编码
-        mCharset = FileUtils.getCharset(bookFile.getAbsolutePath());
+        mCharset = FileUtils.getCharset(bookFile.getAbsolutePath(),false);
         //查找章节，分配章节
         loadChapters();
     }

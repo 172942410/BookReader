@@ -48,7 +48,7 @@ public class YellowBookBean implements Serializable {
          */
         public String id;
         public String name;
-        public int startpage;
+        public String startpage;
         public int pagecount;
         public int contetindex;
         public int progress;
@@ -66,6 +66,20 @@ public class YellowBookBean implements Serializable {
                     ", mCollBookBean=" + mCollBookBean +
                     '}';
         }
+        public YellowCollBookBean getCollBookBean() {
+            if (mCollBookBean == null) {
+                mCollBookBean = createCollBookBean();
+            }
+            return mCollBookBean;
+        }
+        public YellowCollBookBean createCollBookBean() {
+            YellowCollBookBean bean = new YellowCollBookBean();
+            bean.setYellowId(id);
+            bean.setTitle(name);
+            bean.setChaptersCount(pagecount);
+            bean.setLastChapter(startpage+pagecount+"");
+            bean.setLocal(true);
+            return bean;
+        }
     }
-
 }

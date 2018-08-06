@@ -196,13 +196,17 @@ public class FileUtils {
     }
 
     //获取文件的编码格式
-    public static Charset getCharset(String fileName) {
+    public static Charset getCharset(String fileName,boolean isAssets) {
         BufferedInputStream bis = null;
         Charset charset = Charset.GBK;
         byte[] first3Bytes = new byte[3];
         try {
             boolean checked = false;
-            bis = new BufferedInputStream(new FileInputStream(fileName));
+            if(isAssets) {
+                bis = new BufferedInputStream(AssetsUtils.getInstance().open(fileName));
+            }else {
+                bis = new BufferedInputStream(new FileInputStream(fileName));
+            }
             bis.mark(0);
             int read = bis.read(first3Bytes, 0, 3);
             if (read == -1)

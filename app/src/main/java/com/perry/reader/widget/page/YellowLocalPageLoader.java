@@ -2,11 +2,10 @@ package com.perry.reader.widget.page;
 
 
 import com.perry.reader.db.entity.BookChapterBean;
-import com.perry.reader.db.entity.CollBookBean;
 import com.perry.reader.db.entity.YellowCollBookBean;
-import com.perry.reader.db.helper.CollBookHelper;
 import com.perry.reader.db.helper.YellowCollBookHelper;
 import com.perry.reader.model.Void;
+import com.perry.reader.utils.AssetsUtils;
 import com.perry.reader.utils.Charset;
 import com.perry.reader.utils.Constant;
 import com.perry.reader.utils.FileUtils;
@@ -58,12 +57,8 @@ public class YellowLocalPageLoader extends YellowPageLoader {
             "^(\\s{0,4})(\u6b63\u6587)(.{0,20})$",
             "^(.{0,4})(Chapter|chapter)(\\s{0,4})([0-9]{1,4})(.{0,30})$"};
 
-    //书本的大小
-    private long mBookSize;
     //章节解析模式
     private Pattern mChapterPattern = null;
-    //获取书本的文件
-    private File mBookFile;
     //编码类型
     private Charset mCharset;
 
@@ -77,30 +72,19 @@ public class YellowLocalPageLoader extends YellowPageLoader {
     @Override
     public void openBook(YellowCollBookBean collBookBean) {
         super.openBook(collBookBean);
-        mBookFile = new File(collBookBean.getYellowId());
-        //这里id表示本地文件的路径
-
+        //这里id表示本地文件的绝对路径
+        boolean isExists = AssetsUtils.getInstance().isFileExists(collBookBean.getYellowId());
         //判断是否文件存在
-        if (!mBookFile.exists()) {
+        if (!isExists) {
             mStatus = STATUS_PARSE_ERROR;
             return;
         }
-
-        //获取文件的大小
-        mBookSize = mBookFile.length();
-
-        //文件内容为空
-        if (mBookSize == 0) {
-            mStatus = STATUS_EMPTY;
-            return;
-        }
-
         isBookOpen = false;
         //通过RxJava异步处理分章事件
         Single.create(new SingleOnSubscribe<Void>() {
             @Override
             public void subscribe(SingleEmitter<Void> e) throws Exception {
-                loadBook(mBookFile);
+                loadBook(mCollBook.getYellowId());
                 e.onSuccess(new Void());
             }
         }).compose(RxUtils::toSimpleSingle)
@@ -131,9 +115,9 @@ public class YellowLocalPageLoader extends YellowPageLoader {
     }
 
     //采用的是随机读取
-    private void loadBook(File bookFile) throws IOException {
+    private void loadBook(String fileName) throws IOException {
         //获取文件编码
-        mCharset = FileUtils.getCharset(bookFile.getAbsolutePath());
+        mCharset = FileUtils.getCharset(fileName,true);
         //查找章节，分配章节
         loadChapters();
     }
@@ -147,8 +131,9 @@ public class YellowLocalPageLoader extends YellowPageLoader {
      */
     private void loadChapters() throws IOException {
         List<TxtChapter> chapters = new ArrayList<>();
+        //TODO 这里需要重写
         //获取文件流
-        RandomAccessFile bookStream = new RandomAccessFile(mBookFile, "r");
+        RandomAccessFile bookStream = new RandomAccessFile(mCollBook.getYellowId(), "r");
         //寻找匹配文章标题的正则表达式，判断是否存在章节名
         boolean hasChapter = checkChapterType(bookStream);
         //加载章节
@@ -346,7 +331,7 @@ public class YellowLocalPageLoader extends YellowPageLoader {
     private byte[] getChapterContent(TxtChapter chapter) {
         RandomAccessFile bookStream = null;
         try {
-            bookStream = new RandomAccessFile(mBookFile, "r");
+            bookStream = new RandomAccessFile(mCollBook.getYellowId(), "r");
             bookStream.seek(chapter.start);
             int extent = (int) (chapter.end - chapter.start);
             byte[] content = new byte[extent];
