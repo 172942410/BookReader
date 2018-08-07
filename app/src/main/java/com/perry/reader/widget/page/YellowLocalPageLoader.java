@@ -1,10 +1,14 @@
 package com.perry.reader.widget.page;
 
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.perry.reader.db.entity.BookChapterBean;
 import com.perry.reader.db.entity.YellowCollBookBean;
 import com.perry.reader.db.helper.YellowCollBookHelper;
 import com.perry.reader.model.Void;
+import com.perry.reader.utils.AppFileUtils;
 import com.perry.reader.utils.AssetsUtils;
 import com.perry.reader.utils.Charset;
 import com.perry.reader.utils.Constant;
@@ -16,7 +20,6 @@ import com.perry.reader.utils.rxhelper.RxUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -133,7 +136,8 @@ public class YellowLocalPageLoader extends YellowPageLoader {
         List<TxtChapter> chapters = new ArrayList<>();
         //TODO 这里需要重写
         //获取文件流
-        RandomAccessFile bookStream = new RandomAccessFile(mCollBook.getYellowId(), "r");
+//        RandomAccessFile bookStream = new RandomAccessFile(mCollBook.getYellowId(), "r");
+        RandomAccessFile bookStream =  getRandomFile(mCollBook.getYellowId());
         //寻找匹配文章标题的正则表达式，判断是否存在章节名
         boolean hasChapter = checkChapterType(bookStream);
         //加载章节
@@ -331,7 +335,8 @@ public class YellowLocalPageLoader extends YellowPageLoader {
     private byte[] getChapterContent(TxtChapter chapter) {
         RandomAccessFile bookStream = null;
         try {
-            bookStream = new RandomAccessFile(mCollBook.getYellowId(), "r");
+//            bookStream = new RandomAccessFile(mCollBook.getYellowId(), "r");
+            bookStream =  getRandomFile(mCollBook.getYellowId());
             bookStream.seek(chapter.start);
             int extent = (int) (chapter.end - chapter.start);
             byte[] content = new byte[extent];
@@ -431,5 +436,29 @@ public class YellowLocalPageLoader extends YellowPageLoader {
             mChapterDisp.dispose();
             mChapterDisp = null;
         }
+    }
+
+    public RandomAccessFile getRandomFile(String filePath){
+        RandomAccessFile accessFile = null;
+        try {
+            String isFileExist = AppFileUtils.getInstance().isExistOrCreate(filePath);
+            if(TextUtils.isEmpty(isFileExist)){
+                Log.e(TAG, "getRandomFile: 没创建成功或没找到文件:"+isFileExist );
+                return null;
+            }
+//            File file = new File(getContext().getFilesDir(),java.lang.System.currentTimeMillis() + ".txt");
+            accessFile = new RandomAccessFile(isFileExist, "rwd");
+//            InputStream is = AssetsUtils.getInstance().open("test.txt");
+//            byte[] buffer = new byte[1024];
+//            int len = 0;
+//            while((len = is.read(buffer))!=-1){
+//                accessFile.write(buffer,0,len);
+//            }
+//            accessFile.close();
+//            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accessFile;
     }
 }

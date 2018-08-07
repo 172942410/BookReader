@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.perry.reader.R;
+import com.perry.reader.utils.AppFileUtils;
 import com.perry.reader.utils.AssetsUtils;
 import com.perry.reader.view.base.BaseActivity;
 import com.perry.reader.view.base.BaseViewPageAdapter;
@@ -45,6 +46,7 @@ public class BookListActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         AssetsUtils.init(getApplication());
+        AppFileUtils.init(getApplication());
         mTitleName = getIntent().getStringExtra("titleName");
         mGetder = getIntent().getStringExtra("getder");
         initThemeToolBar(mTitleName);

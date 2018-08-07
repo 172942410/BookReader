@@ -79,7 +79,7 @@ public class AssetsUtils {
 //        }
         String pathSplit[]  = filePath.split("\\/");
         String fileName = pathSplit[pathSplit.length-1];
-        String path = filePath.substring(0,filePath.length()-fileName.length());
+        String path = filePath.substring(0,filePath.length()-fileName.length()-1);
         return isFileExists(path,fileName);
     }
     /**
