@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
+import android.util.Log;
 
 import com.perry.reader.R;
 import com.perry.reader.WYApplication;
@@ -140,6 +141,8 @@ public abstract class YellowPageLoader {
     private int mPageBg;
     //当前是否是夜间模式
     private boolean isNightMode;
+
+    int currentPage;//当前在此篇文章的第几页；
 
     /*****************************init params*******************************/
     public YellowPageLoader(YellowPageView pageView) {
@@ -449,6 +452,20 @@ public abstract class YellowPageLoader {
     //打开书本，初始化书籍
     public void openBook(YellowCollBookBean collBook) {
         mCollBook = collBook;
+        try {
+            String filePath = collBook.getYellowId();
+            String [] fileSplit = filePath.split("\\/");
+            String fileName = fileSplit[fileSplit.length-1];
+            if(fileName.endsWith(".txt")){
+                String fileIndex =  fileName.substring(0,fileName.length()-4);
+                currentPage = Integer.parseInt(fileIndex);
+            }else{
+                currentPage = Integer.parseInt(fileName);
+            }
+//            currentPage = Integer.parseInt(collBook.getStartpage());
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
         //init book record
 
         //从数据库取阅读数据
@@ -940,8 +957,40 @@ public abstract class YellowPageLoader {
     boolean nextChapter() {
         //加载一章
         if (mCurChapterPos + 1 >= mChapterList.size()) {
-            ToastUtils.show("已经没有下一章了");
-            return false;
+            currentPage++;
+            int startPage = 0;
+            try {
+                 startPage = Integer.parseInt(mCollBook.getStartpage()); //开始的页码
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+           if(currentPage > startPage + mCollBook.getPagecount()-1){
+               ToastUtils.show("已经没有下一份文件了");
+               Log.w(TAG, "nextChapter: currentPage："+currentPage+",startPage:"+startPage+",getPagecount:"+mCollBook.getPagecount() );
+               return false;
+           }else{
+                //TODO 这里再去加载下一个txt文件；
+               String filePath = mCollBook.getYellowId();
+              String fileSplit[] =  filePath.split("\\/");
+              String fileName = fileSplit[fileSplit.length-1];
+             String newPath =  filePath.substring(0,filePath.length()-fileName.length());
+             String newFileName;
+             if(currentPage>99){
+                 newFileName = currentPage+".txt";
+             }else if(currentPage<10){
+                 newFileName = "00"+currentPage+".txt";
+             }else{
+                 //这里是大于等于10和小于等于99 的
+                 newFileName = "0"+currentPage+".txt";
+             }
+               newPath = newPath+newFileName;
+               mCollBook.setYellowId(newPath);
+               openBook(mCollBook);
+           }
+//            mCollBook.getPagecount();//每篇的页数；
+
+//            ToastUtils.show("已经没有下一章了");
+            return true;
         }
 
         //如果存在下一章，则存储当前Page列表为上一章

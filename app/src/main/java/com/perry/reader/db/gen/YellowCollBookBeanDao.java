@@ -38,6 +38,9 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         public final static Property LastChapter = new Property(11, String.class, "lastChapter", false, "LAST_CHAPTER");
         public final static Property IsUpdate = new Property(12, boolean.class, "isUpdate", false, "IS_UPDATE");
         public final static Property IsLocal = new Property(13, boolean.class, "isLocal", false, "IS_LOCAL");
+        public final static Property Startpage = new Property(14, String.class, "startpage", false, "STARTPAGE");
+        public final static Property Pagecount = new Property(15, int.class, "pagecount", false, "PAGECOUNT");
+        public final static Property Contetindex = new Property(16, int.class, "contetindex", false, "CONTETINDEX");
     }
 
     private DaoSession daoSession;
@@ -69,7 +72,10 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
                 "\"CHAPTERS_COUNT\" INTEGER NOT NULL ," + // 10: chaptersCount
                 "\"LAST_CHAPTER\" TEXT," + // 11: lastChapter
                 "\"IS_UPDATE\" INTEGER NOT NULL ," + // 12: isUpdate
-                "\"IS_LOCAL\" INTEGER NOT NULL );"); // 13: isLocal
+                "\"IS_LOCAL\" INTEGER NOT NULL ," + // 13: isLocal
+                "\"STARTPAGE\" TEXT," + // 14: startpage
+                "\"PAGECOUNT\" INTEGER NOT NULL ," + // 15: pagecount
+                "\"CONTETINDEX\" INTEGER NOT NULL );"); // 16: contetindex
     }
 
     /** Drops the underlying database table. */
@@ -127,6 +133,13 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         }
         stmt.bindLong(13, entity.getIsUpdate() ? 1L: 0L);
         stmt.bindLong(14, entity.getIsLocal() ? 1L: 0L);
+ 
+        String startpage = entity.getStartpage();
+        if (startpage != null) {
+            stmt.bindString(15, startpage);
+        }
+        stmt.bindLong(16, entity.getPagecount());
+        stmt.bindLong(17, entity.getContetindex());
     }
 
     @Override
@@ -178,6 +191,13 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         }
         stmt.bindLong(13, entity.getIsUpdate() ? 1L: 0L);
         stmt.bindLong(14, entity.getIsLocal() ? 1L: 0L);
+ 
+        String startpage = entity.getStartpage();
+        if (startpage != null) {
+            stmt.bindString(15, startpage);
+        }
+        stmt.bindLong(16, entity.getPagecount());
+        stmt.bindLong(17, entity.getContetindex());
     }
 
     @Override
@@ -207,7 +227,10 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
             cursor.getInt(offset + 10), // chaptersCount
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // lastChapter
             cursor.getShort(offset + 12) != 0, // isUpdate
-            cursor.getShort(offset + 13) != 0 // isLocal
+            cursor.getShort(offset + 13) != 0, // isLocal
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // startpage
+            cursor.getInt(offset + 15), // pagecount
+            cursor.getInt(offset + 16) // contetindex
         );
         return entity;
     }
@@ -228,6 +251,9 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         entity.setLastChapter(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setIsUpdate(cursor.getShort(offset + 12) != 0);
         entity.setIsLocal(cursor.getShort(offset + 13) != 0);
+        entity.setStartpage(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setPagecount(cursor.getInt(offset + 15));
+        entity.setContetindex(cursor.getInt(offset + 16));
      }
     
     @Override

@@ -78,6 +78,9 @@ public class YellowBookBean implements Serializable {
             bean.setTitle(name);
             bean.setChaptersCount(pagecount);
             bean.setLastChapter(startpage+pagecount+"");
+            bean.setPageCount(startpage);
+            bean.setStartPage(pagecount);
+            bean.setContetIndex(contetindex);
             bean.setLocal(true);
             return bean;
         }

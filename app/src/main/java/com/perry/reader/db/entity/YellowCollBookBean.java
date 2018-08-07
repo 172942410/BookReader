@@ -48,10 +48,10 @@ public class YellowCollBookBean implements Serializable {
     @Generated(hash = 694779093)
     private transient YellowCollBookBeanDao myDao;
 
-    @Generated(hash = 1637527949)
-    public YellowCollBookBean(String yellowId, String title, String author, String shortIntro, String cover,
-            boolean hasCp, int latelyFollower, double retentionRatio, String updated, String lastRead,
-            int chaptersCount, String lastChapter, boolean isUpdate, boolean isLocal) {
+    @Generated(hash = 543864579)
+    public YellowCollBookBean(String yellowId, String title, String author, String shortIntro, String cover, boolean hasCp,
+            int latelyFollower, double retentionRatio, String updated, String lastRead, int chaptersCount, String lastChapter,
+            boolean isUpdate, boolean isLocal, String startpage, int pagecount, int contetindex) {
         this.yellowId = yellowId;
         this.title = title;
         this.author = author;
@@ -66,6 +66,9 @@ public class YellowCollBookBean implements Serializable {
         this.lastChapter = lastChapter;
         this.isUpdate = isUpdate;
         this.isLocal = isLocal;
+        this.startpage = startpage;
+        this.pagecount = pagecount;
+        this.contetindex = contetindex;
     }
 
     @Generated(hash = 1873109672)
@@ -317,6 +320,45 @@ public class YellowCollBookBean implements Serializable {
                 ", bookChapterList=" + bookChapterList +
                 ", daoSession=" + daoSession +
                 ", myDao=" + myDao +
+                ", startpage=" + startpage +
+                ", pagecount=" + pagecount +
+                ", contetindex=" + contetindex +
                 '}';
+    }
+    private String startpage;
+    public void setPageCount(String startpage) {
+        this.startpage = startpage;
+    }
+    private int pagecount;
+    public void setStartPage(int pagecount) {
+        this.pagecount = pagecount;
+    }
+    private int contetindex;
+    public void setContetIndex(int contetindex) {
+        this.contetindex = contetindex;
+    }
+
+    public String getStartpage() {
+        return this.startpage;
+    }
+
+    public void setStartpage(String startpage) {
+        this.startpage = startpage;
+    }
+
+    public int getPagecount() {
+        return this.pagecount;
+    }
+
+    public void setPagecount(int pagecount) {
+        this.pagecount = pagecount;
+    }
+
+    public int getContetindex() {
+        return this.contetindex;
+    }
+
+    public void setContetindex(int contetindex) {
+        this.contetindex = contetindex;
     }
 }
