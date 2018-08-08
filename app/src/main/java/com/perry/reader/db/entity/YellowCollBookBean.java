@@ -48,10 +48,10 @@ public class YellowCollBookBean implements Serializable {
     @Generated(hash = 694779093)
     private transient YellowCollBookBeanDao myDao;
 
-    @Generated(hash = 543864579)
+    @Generated(hash = 1587980495)
     public YellowCollBookBean(String yellowId, String title, String author, String shortIntro, String cover, boolean hasCp,
             int latelyFollower, double retentionRatio, String updated, String lastRead, int chaptersCount, String lastChapter,
-            boolean isUpdate, boolean isLocal, String startpage, int pagecount, int contetindex) {
+            boolean isUpdate, boolean isLocal, String startpage, int pagecount, int contetindex, boolean fromLast) {
         this.yellowId = yellowId;
         this.title = title;
         this.author = author;
@@ -69,6 +69,7 @@ public class YellowCollBookBean implements Serializable {
         this.startpage = startpage;
         this.pagecount = pagecount;
         this.contetindex = contetindex;
+        this.fromLast = fromLast;
     }
 
     @Generated(hash = 1873109672)
@@ -323,6 +324,7 @@ public class YellowCollBookBean implements Serializable {
                 ", startpage=" + startpage +
                 ", pagecount=" + pagecount +
                 ", contetindex=" + contetindex +
+                ", fromLast=" + fromLast +
                 '}';
     }
     private String startpage;
@@ -337,7 +339,17 @@ public class YellowCollBookBean implements Serializable {
     public void setContetIndex(int contetindex) {
         this.contetindex = contetindex;
     }
-
+    private boolean fromLast;
+    /**
+     *
+     * @param fromLast -1 为最后一页
+     */
+    public void setFromLast(boolean fromLast){
+        this.fromLast = fromLast;
+    }
+    public boolean getFromLast(){
+        return fromLast;
+    }
     public String getStartpage() {
         return this.startpage;
     }

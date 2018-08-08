@@ -41,6 +41,7 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         public final static Property Startpage = new Property(14, String.class, "startpage", false, "STARTPAGE");
         public final static Property Pagecount = new Property(15, int.class, "pagecount", false, "PAGECOUNT");
         public final static Property Contetindex = new Property(16, int.class, "contetindex", false, "CONTETINDEX");
+        public final static Property FromLast = new Property(17, boolean.class, "fromLast", false, "FROM_LAST");
     }
 
     private DaoSession daoSession;
@@ -75,7 +76,8 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
                 "\"IS_LOCAL\" INTEGER NOT NULL ," + // 13: isLocal
                 "\"STARTPAGE\" TEXT," + // 14: startpage
                 "\"PAGECOUNT\" INTEGER NOT NULL ," + // 15: pagecount
-                "\"CONTETINDEX\" INTEGER NOT NULL );"); // 16: contetindex
+                "\"CONTETINDEX\" INTEGER NOT NULL ," + // 16: contetindex
+                "\"FROM_LAST\" INTEGER NOT NULL );"); // 17: fromLast
     }
 
     /** Drops the underlying database table. */
@@ -140,6 +142,7 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         }
         stmt.bindLong(16, entity.getPagecount());
         stmt.bindLong(17, entity.getContetindex());
+        stmt.bindLong(18, entity.getFromLast() ? 1L: 0L);
     }
 
     @Override
@@ -198,6 +201,7 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         }
         stmt.bindLong(16, entity.getPagecount());
         stmt.bindLong(17, entity.getContetindex());
+        stmt.bindLong(18, entity.getFromLast() ? 1L: 0L);
     }
 
     @Override
@@ -230,7 +234,8 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
             cursor.getShort(offset + 13) != 0, // isLocal
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // startpage
             cursor.getInt(offset + 15), // pagecount
-            cursor.getInt(offset + 16) // contetindex
+            cursor.getInt(offset + 16), // contetindex
+            cursor.getShort(offset + 17) != 0 // fromLast
         );
         return entity;
     }
@@ -254,6 +259,7 @@ public class YellowCollBookBeanDao extends AbstractDao<YellowCollBookBean, Strin
         entity.setStartpage(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
         entity.setPagecount(cursor.getInt(offset + 15));
         entity.setContetindex(cursor.getInt(offset + 16));
+        entity.setFromLast(cursor.getShort(offset + 17) != 0);
      }
     
     @Override

@@ -481,6 +481,9 @@ public abstract class YellowPageLoader {
 
     //打开具体章节
     public void openChapter() {
+        if(mCollBook.getFromLast()){
+            mCurChapterPos = mChapterList.size()-1;
+        }
         mCurPageList = loadPageList(mCurChapterPos);
         //进行预加载
         preLoadNextChapter();
@@ -489,15 +492,27 @@ public abstract class YellowPageLoader {
         //获取制定页面
         if (!isBookOpen) {
             isBookOpen = true;
-            //可能会出现当前页的大小大于记录页的情况。
-            int position = mBookRecord.getPagePos();
-            if (position >= mCurPageList.size()) {
-                position = mCurPageList.size() - 1;
-            }
-            mCurPage = getCurPage(position);
-            mCancelPage = mCurPage;
-            if (mPageChangeListener != null) {
-                mPageChangeListener.onChapterChange(mCurChapterPos);
+
+            if(mCollBook.getFromLast()){
+                //是返回上一个文件的操作 最后一页开始
+                mCurPage = getCurPage(mCurPageList.size() - 1);
+                mCollBook.setFromLast(false);
+
+                /*mCancelPage = mCurPage;
+                if (mPageChangeListener != null) {
+                    mPageChangeListener.onChapterChange(mCurChapterPos);
+                }*/
+            }else {
+                int position = mBookRecord.getPagePos();
+                //可能会出现当前页的大小大于记录页的情况。
+                if (position >= mCurPageList.size()) {
+                    position = mCurPageList.size() - 1;
+                }
+                mCurPage = getCurPage(position);
+                mCancelPage = mCurPage;
+                if (mPageChangeListener != null) {
+                    mPageChangeListener.onChapterChange(mCurChapterPos);
+                }
             }
         } else {
             mCurPage = getCurPage(0);
@@ -910,7 +925,7 @@ public abstract class YellowPageLoader {
                 }
                 newPath = newPath+newFileName;
                 mCollBook.setYellowId(newPath);
-//                mCollBook.setCurPage(-1);
+                mCollBook.setFromLast(true);
                 openBook(mCollBook);
             }
             return true;
@@ -1001,7 +1016,6 @@ public abstract class YellowPageLoader {
                Log.w(TAG, "nextChapter: currentPage："+currentPage+",startPage:"+startPage+",getPagecount:"+mCollBook.getPagecount() );
                return false;
            }else{
-               saveRecord(); // 这样可以记录在返回上一个文件的时候是从最后一页开始的
                 //TODO 这里再去加载下一个txt文件；
                String filePath = mCollBook.getYellowId();
               String fileSplit[] =  filePath.split("\\/");
