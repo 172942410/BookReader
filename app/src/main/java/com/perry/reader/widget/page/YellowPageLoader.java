@@ -880,8 +880,40 @@ public abstract class YellowPageLoader {
     boolean prevChapter() {
         //判断是否上一章节为空
         if (mCurChapterPos - 1 < 0) {
-            ToastUtils.show("已经没有上一章了");
-            return false;
+//            ToastUtils.show("已经没有上一章了");
+//            return false;
+            currentPage--;
+            int startPage = 0;
+            try {
+                startPage = Integer.parseInt(mCollBook.getStartpage()); //开始的页码
+            }catch (NumberFormatException e){
+                e.printStackTrace();
+            }
+            if(currentPage < startPage){
+                ToastUtils.show("已经没有上一份文件了或上一章");
+                Log.w(TAG, "nextChapter: currentPage："+currentPage+",startPage:"+startPage+",getPagecount:"+mCollBook.getPagecount() );
+                return false;
+            }else{
+                //TODO 这里再去加载上一个txt文件；
+                String filePath = mCollBook.getYellowId();
+                String fileSplit[] =  filePath.split("\\/");
+                String fileName = fileSplit[fileSplit.length-1];
+                String newPath =  filePath.substring(0,filePath.length()-fileName.length());
+                String newFileName;
+                if(currentPage>99){
+                    newFileName = currentPage+".txt";
+                }else if(currentPage<10){
+                    newFileName = "00"+currentPage+".txt";
+                }else{
+                    //这里是大于等于10和小于等于99 的
+                    newFileName = "0"+currentPage+".txt";
+                }
+                newPath = newPath+newFileName;
+                mCollBook.setYellowId(newPath);
+//                mCollBook.setCurPage(-1);
+                openBook(mCollBook);
+            }
+            return true;
         }
 
         //加载上一章数据
@@ -969,6 +1001,7 @@ public abstract class YellowPageLoader {
                Log.w(TAG, "nextChapter: currentPage："+currentPage+",startPage:"+startPage+",getPagecount:"+mCollBook.getPagecount() );
                return false;
            }else{
+               saveRecord(); // 这样可以记录在返回上一个文件的时候是从最后一页开始的
                 //TODO 这里再去加载下一个txt文件；
                String filePath = mCollBook.getYellowId();
               String fileSplit[] =  filePath.split("\\/");
