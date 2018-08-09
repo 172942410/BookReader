@@ -55,7 +55,7 @@ public class BookListActivity extends BaseActivity {
 
 
         if(!TextUtils.isEmpty(mTitleName)&& mTitleName.equals("情色")){
-            titles = new String[]{"狂暴", "乱伦", "淫乱"};
+            titles = new String[]{"狂暴587本", "乱伦293本", "淫乱599本"};
             types = new String[]{"kuangbao", "luanlun", "yinluan"};
 //            titles = new String[]{"乱伦"};
 //            types = new String[]{"luanlun"};

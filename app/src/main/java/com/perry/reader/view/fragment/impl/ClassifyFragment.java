@@ -89,7 +89,7 @@ public class ClassifyFragment extends BaseFragment implements IClassifyBook {
                 List<BookClassifyBean.ClassifyBean> classifyBeanList = bookClassifyBean.getMale();
                 Log.e(TAG,"classifyBeanList:"+classifyBeanList.toString());
                 BookClassifyBean.ClassifyBean classifyBean = new BookClassifyBean.ClassifyBean();
-                classifyBean.setBookCount("未知");
+                classifyBean.setBookCount("1479");
                 classifyBean.setIcon("也没有图标的");
                 classifyBean.setName("情色");
                 classifyBean.setMonthlyCount("这是啥");
