@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 
 import com.allen.library.RxHttpUtils;
+import com.google.android.gms.ads.MobileAds;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 import com.perry.reader.utils.Constant;
@@ -67,6 +68,7 @@ public class WYApplication extends Application {
         initRxHttpUtils();
         initRefresh();
         initLoadingLayout();
+        MobileAds.initialize(this, "ca-app-pub-4448178060872498~1042836125");
     }
 
     private void initLoadingLayout() {

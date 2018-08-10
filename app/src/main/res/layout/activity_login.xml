@@ -77,16 +77,30 @@
         app:srcCompat="@drawable/ic_login_finish"
         />
 
-    <LinearLayout
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-4448178060872498/5129011679"
+        >
+    </com.google.android.gms.ads.AdView>
+
+    <LinearLayout
+        android:id="@+id/linear_third_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:orientation="horizontal"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="visible"
+        android:layout_above="@id/adView"
+        >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -157,4 +171,6 @@
 
         </LinearLayout>
     </LinearLayout>
+
+
 </RelativeLayout>
