@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.perry.reader.R;
 import com.perry.reader.model.YellowBookBean;
 import com.perry.reader.view.activity.impl.YellowReadActivity;
@@ -55,6 +57,11 @@ public class YellowBooksFragment extends BaseFragment implements IYellowBookInfo
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mModel = new YellowBooksInfo(mContext, this);
         View view = setContentView(container, R.layout.fragment_book_info, mModel);
+
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        
         return view;
     }
 

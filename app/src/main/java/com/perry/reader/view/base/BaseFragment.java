@@ -29,7 +29,7 @@ public class BaseFragment extends Fragment {
     protected BaseViewModel mModel;
     protected Context mContext;
     private View mBindView;
-    private View mView;
+    protected View mView;
     protected CompositeDisposable mDisposable;
 
     /**

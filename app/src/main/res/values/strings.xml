@@ -63,7 +63,7 @@
     <string name="wy.download.chapter_scope">(%1$d-%2$d章)</string>
     <string name="title_activity_login">用户登录</string>
     <string name="title_activity_user">UserActivity</string>
-    <string name="about_content">此项目建立主要是对自己技术学习的总结。主要是对NodeJs后台知识的实践，此项目的数据是爬取追书神器的部分数据，然后在自己的服务器进行整理关联自己的用户系统。前前后后用了3个多月才算正式完成，主要是业余时间不是特别多，项目功能不多，实现了简单的登录、注册、阅读、收藏、下载等比较常用的功能。后面有时间的话可能会对数据源进行整合，争取多弄些书籍数据，如果大家有什么好的意见也欢迎联系我。</string>
+    <string name="about_content">此项目的数据是爬取追书神器的部分数据。项目功能不多，但重点是第一部分的读书</string>
 
 
 </resources>

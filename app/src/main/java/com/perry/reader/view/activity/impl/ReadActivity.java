@@ -30,6 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.perry.reader.R;
 import com.perry.reader.db.entity.BookChapterBean;
 import com.perry.reader.db.entity.CollBookBean;
@@ -189,6 +191,9 @@ public class ReadActivity extends BaseActivity implements IBookChapters {
         mVmContentInfo = new VMBookContentInfo(mContext, this);
         setBinddingView(R.layout.activity_read, NO_BINDDING, mVmContentInfo);
 
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

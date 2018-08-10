@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.perry.reader.R;
 import com.perry.reader.view.activity.impl.MainActivity;
 import com.perry.reader.view.base.BaseFragment;
@@ -72,6 +74,10 @@ public class BookClassifyFragment extends BaseFragment {
         mVpClassify.setOffscreenPageLimit(4);
         mNtsClassify.setTitles(titles);
         mNtsClassify.setViewPager(mVpClassify);
+
+        AdView mAdView = mView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 }
