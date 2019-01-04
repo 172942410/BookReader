@@ -17,7 +17,6 @@ import com.perry.reader.view.adapter.ClassifyAdapter;
 import com.perry.reader.view.base.BaseFragment;
 import com.perry.reader.view.fragment.IClassifyBook;
 import com.perry.reader.viewmodel.fragment.VMBookClassify;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.ArrayList;
@@ -75,7 +74,9 @@ public class ClassifyFragment extends BaseFragment implements IClassifyBook {
             bundle.putString("titleName", mClassifyBeans.get(position).getName());
             startActivity(BookListActivity.class, bundle);
         });
-
+        mLoadinglayout.setOnReloadListener(v -> {
+            mModel.bookClassify();
+        });
 
     }
 
@@ -130,11 +131,32 @@ public class ClassifyFragment extends BaseFragment implements IClassifyBook {
 
     @Override
     public void NetWorkError() {
-        mLoadinglayout.setStatus(LoadingLayout.No_Network);
+        loadLocal(null);
+//        mLoadinglayout.setStatus(LoadingLayout.No_Network);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    private void loadLocal(BookClassifyBean bookClassifyBean){
+        if(bookClassifyBean == null){
+            bookClassifyBean = new BookClassifyBean();
+        }
+        getder = "male";
+        List<BookClassifyBean.ClassifyBean> classifyBeanList = bookClassifyBean.getMale();
+        if(classifyBeanList == null){
+            classifyBeanList = new ArrayList<>();
+            bookClassifyBean.setMale(classifyBeanList);
+        }
+        Log.e(TAG,"classifyBeanList:"+classifyBeanList.toString());
+        BookClassifyBean.ClassifyBean classifyBean = new BookClassifyBean.ClassifyBean();
+        classifyBean.setBookCount("1479");
+        classifyBean.setIcon("也没有图标的");
+        classifyBean.setName("情色");
+        classifyBean.setMonthlyCount("这是啥");
+        classifyBeanList.add(0,classifyBean);
+        mClassifyBeans.addAll(classifyBeanList);
     }
 }
