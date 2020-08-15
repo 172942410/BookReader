@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.allen.library.RxHttpUtils;
 import com.google.android.gms.ads.MobileAds;
@@ -30,7 +32,7 @@ import okhttp3.internal.platform.Platform;
  * Created by Liang_Lu on 2017/11/21.
  */
 
-public class WYApplication extends Application {
+public class WYApplication extends MultiDexApplication {
     private static WYApplication app;
 
     public static Context getAppContext() {
@@ -45,7 +47,7 @@ public class WYApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-//        MultiDex.install(this);
+        MultiDex.install(this);
     }
 
 
