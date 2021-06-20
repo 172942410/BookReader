@@ -69,7 +69,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    implementation 'com.android.support:multidex:1.0.1'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+//    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 //    implementation 'com.google.android.gms:play-services-ads:12.0.1'
 //    implementation 'com.google.firebase:firebase-messaging:12.0.1'
 //    implementation 'com.google.firebase:firebase-ads:15.0.0'
@@ -79,12 +79,11 @@ dependencies {
 
 //    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.2'
     //noinspection GradleCompatible
-    implementation "com.android.support:appcompat-v7:${libs.supportVersion}"
-    implementation "com.android.support.constraint:constraint-layout:${libs.constraint_layout}"
-    implementation "com.android.support:design:${libs.supportVersion}"
-    implementation "com.android.support:support-vector-drawable:${libs.supportVersion}"
-
-    implementation "com.android.support:cardview-v7:${libs.supportVersion}"
+//    implementation "com.android.support:appcompat-v7:${libs.supportVersion}"
+//    implementation "com.android.support.constraint:constraint-layout:${libs.constraint_layout}"
+//    implementation "com.android.support:design:${libs.supportVersion}"
+//    implementation "com.android.support:support-vector-drawable:${libs.supportVersion}"
+//    implementation "com.android.support:cardview-v7:${libs.supportVersion}"
 
     /**
      *    rxpermissions
@@ -117,6 +116,8 @@ dependencies {
     implementation "com.jakewharton:butterknife:${libs.butterknife}"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'org.jetbrains:annotations:15.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     annotationProcessor "com.jakewharton:butterknife-compiler:${libs.butterknife}"
 
     /**
