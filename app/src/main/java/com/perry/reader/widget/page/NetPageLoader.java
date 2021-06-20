@@ -1,6 +1,6 @@
 package com.perry.reader.widget.page;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.perry.reader.db.entity.BookChapterBean;
 import com.perry.reader.db.entity.CollBookBean;

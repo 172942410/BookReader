@@ -1,7 +1,6 @@
 package com.perry.reader.view.adapter;
 
-import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
+import androidx.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;

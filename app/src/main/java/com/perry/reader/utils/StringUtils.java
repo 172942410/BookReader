@@ -1,6 +1,6 @@
 package com.perry.reader.utils;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.perry.reader.WYApplication;
 

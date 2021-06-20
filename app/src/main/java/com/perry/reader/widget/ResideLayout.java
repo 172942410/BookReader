@@ -1,6 +1,7 @@
 package com.perry.reader.widget;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -13,12 +14,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.DrawableRes;
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.widget.ViewDragHelper;
+import androidx.annotation.DrawableRes;
+import androidx.core.view.AccessibilityDelegateCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.customview.widget.ViewDragHelper;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -924,7 +926,8 @@ public class ResideLayout extends ViewGroup {
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         boolean result;
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-        final int save = canvas.save(Canvas.ALL_SAVE_FLAG);
+//        final int save = canvas.save(Canvas.ALL_SAVE_FLAG);
+        final int save = canvas.save();
         if (mCanSlide && !lp.slideable && mSlideableView != null) {
             canvas.scale(1.5f - 0.5f * mSlideOffset, 1.5f - 0.5f * mSlideOffset, child.getRight(), getHeight() / 2);
         } else {
@@ -1496,6 +1499,7 @@ public class ResideLayout extends ViewGroup {
             mChildView = childView;
         }
 
+        @SuppressLint("WrongConstant")
         @Override
         public void run() {
             if (mChildView.getParent() == ResideLayout.this) {

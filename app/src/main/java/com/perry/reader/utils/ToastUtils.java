@@ -1,8 +1,9 @@
 package com.perry.reader.utils;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.widget.Toast;
+
+import androidx.annotation.StringRes;
 
 import com.perry.reader.WYApplication;
 

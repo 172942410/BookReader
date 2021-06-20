@@ -1,10 +1,11 @@
 package com.perry.reader.utils;
 
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.perry.reader.WYApplication;
 

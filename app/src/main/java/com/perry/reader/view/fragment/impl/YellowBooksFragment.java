@@ -1,15 +1,15 @@
 package com.perry.reader.view.fragment.impl;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.perry.reader.R;
 import com.perry.reader.model.YellowBookBean;
 import com.perry.reader.view.activity.impl.YellowReadActivity;
@@ -19,8 +19,10 @@ import com.perry.reader.view.fragment.IYellowBookInfo;
 import com.perry.reader.viewmodel.fragment.YellowBooksInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.weavey.loading.lib.LoadingLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +60,9 @@ public class YellowBooksFragment extends BaseFragment implements IYellowBookInfo
         mModel = new YellowBooksInfo(mContext, this);
         View view = setContentView(container, R.layout.fragment_book_info, mModel);
 
-        AdView mAdView = view.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        AdView mAdView = view.findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
         
         return view;
     }
@@ -81,10 +83,9 @@ public class YellowBooksFragment extends BaseFragment implements IYellowBookInfo
         titleName = getArguments().getString("titleName");
 //        getder = getArguments().getString("getder");
         type = getArguments().getString("type");
-
-        mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+        mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(@NonNull @NotNull RefreshLayout refreshLayout) {
                 ++loadPage;
 //                mModel.getBooks(type, titleName, loadPage);
                 stopLoading();
@@ -145,7 +146,7 @@ public class YellowBooksFragment extends BaseFragment implements IYellowBookInfo
     @Override
     public void stopLoading() {
         mRefreshLayout.finishRefresh();
-        mRefreshLayout.finishLoadmore();
+        mRefreshLayout.finishLoadMore();
     }
 
     @Override

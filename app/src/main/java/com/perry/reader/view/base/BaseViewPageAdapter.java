@@ -1,9 +1,10 @@
 package com.perry.reader.view.base;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class BaseViewPageAdapter extends FragmentPagerAdapter {
     private String[] titleArray;
     private List<Fragment> fragments;
 
-    public BaseViewPageAdapter(FragmentManager fm,String[] titleArray, List<Fragment> fragments) {
+    public BaseViewPageAdapter(FragmentManager fm, String[] titleArray, List<Fragment> fragments) {
         super(fm);
         this.titleArray = titleArray;
         this.fragments=fragments;

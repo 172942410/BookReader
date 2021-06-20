@@ -1,8 +1,8 @@
 package com.perry.reader.utils;
 
-import android.support.design.widget.Snackbar;
 import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.perry.reader.R;
 import com.perry.reader.WYApplication;
 import com.perry.reader.widget.theme.Theme;

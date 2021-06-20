@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
 import com.perry.reader.R;
 import com.perry.reader.view.base.BaseActivity;
 
@@ -17,14 +15,14 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        InterstitialAd mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-4448178060872498/7727254851");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            Log.d("TAG", "启动页的大广告没有加载完成呢");
-        }
+//        InterstitialAd mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-4448178060872498/7727254851");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        if (mInterstitialAd.isLoaded()) {
+//            mInterstitialAd.show();
+//        } else {
+//            Log.d("TAG", "启动页的大广告没有加载完成呢");
+//        }
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {

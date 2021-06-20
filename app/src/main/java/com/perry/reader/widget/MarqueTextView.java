@@ -1,7 +1,9 @@
 package com.perry.reader.widget;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
+
 import android.util.AttributeSet;
 
 /**
@@ -9,7 +11,7 @@ import android.util.AttributeSet;
  * 重写Textview （文字过长滚动显示）
  */
 
-public class MarqueTextView extends android.support.v7.widget.AppCompatTextView {
+public class MarqueTextView extends AppCompatTextView {
     public MarqueTextView(Context context) {
         super(context);
     }

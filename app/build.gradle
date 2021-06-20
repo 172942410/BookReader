@@ -4,7 +4,13 @@ apply plugin: 'org.greenrobot.greendao'
 def cfg = rootProject.ext.configuration
 def libs = rootProject.ext.libraries
 
+
 android {
+    buildFeatures{
+        dataBinding = true
+        // for view binding :
+        // viewBinding = true
+    }
     compileSdkVersion cfg.compileVersion
     defaultConfig {
         applicationId "com.perry.reader"
@@ -19,9 +25,9 @@ android {
         exclude 'META-INF/rxjava.properties'
     }
 
-    dataBinding {
-        enabled = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
 
 
     greendao {
@@ -54,22 +60,25 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-    buildToolsVersion '27.0.3'
+//    buildToolsVersion '27.0.3'
 }
 
 
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:multidex:1.0.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.google.android.gms:play-services-ads:12.0.1'
-    implementation 'com.google.firebase:firebase-messaging:12.0.1'
-    implementation 'com.google.firebase:firebase-ads:15.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+//    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+//    implementation 'com.google.android.gms:play-services-ads:12.0.1'
+//    implementation 'com.google.firebase:firebase-messaging:12.0.1'
+//    implementation 'com.google.firebase:firebase-ads:15.0.0'
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
 //    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.2'
+    //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:${libs.supportVersion}"
     implementation "com.android.support.constraint:constraint-layout:${libs.constraint_layout}"
     implementation "com.android.support:design:${libs.supportVersion}"
@@ -106,6 +115,8 @@ dependencies {
      *   butterknife
      */
     implementation "com.jakewharton:butterknife:${libs.butterknife}"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'org.jetbrains:annotations:15.0'
     annotationProcessor "com.jakewharton:butterknife-compiler:${libs.butterknife}"
 
     /**

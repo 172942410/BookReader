@@ -1,10 +1,17 @@
 package com.perry.reader.view.service;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+
 import android.text.TextUtils;
 
 import com.allen.library.RxHttpUtils;
@@ -66,7 +73,23 @@ public class BookDownloadService extends BaseService {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+            builder.setSmallIcon(R.drawable.ic_icon);
+            builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_icon));
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                builder.setChannelId("notification_id");
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+                NotificationChannel channel = new NotificationChannel("notification_id", "notification_name", NotificationManager.IMPORTANCE_LOW);
+                notificationManager.createNotificationChannel(channel);
+            }
+            // 启动前台服务通知
+            startForeground(1, builder.build());
+        }else {
+            startForeground(1, new Notification());
+        }
         mHandler = new Handler(getMainLooper());
 
         mDownloadTaskList = BookDownloadHelper.getsInstance().getBookDownloadList();

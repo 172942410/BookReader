@@ -3,9 +3,9 @@ package com.perry.reader.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -80,8 +80,7 @@ public class BookTagDialog extends Dialog {
             mContext.startActivity(intent);
         });
 
-
-        mRefreshLayout.setOnLoadmoreListener(refreshlayout -> {
+        mRefreshLayout.setOnLoadMoreListener(refreshlayout -> {
             ++page;
             BookTagDialog.this.getBooksByTag();
         });
@@ -101,12 +100,12 @@ public class BookTagDialog extends Dialog {
                 .subscribe(new RxObserver<List<BookBean>>() {
                     @Override
                     protected void onError(String errorMsg) {
-                        mRefreshLayout.finishLoadmore();
+                        mRefreshLayout.finishLoadMore();
                     }
 
                     @Override
                     protected void onSuccess(List<BookBean> data) {
-                        mRefreshLayout.finishLoadmore();
+                        mRefreshLayout.finishLoadMore();
                         mBeans.addAll(data);
                         if (mBeans.size() > 0) {
                             mBookTagsAdapter.notifyDataSetChanged();

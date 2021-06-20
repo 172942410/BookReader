@@ -2,14 +2,12 @@ package com.perry.reader.view.activity.impl;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.perry.reader.R;
 import com.perry.reader.utils.ToastUtils;
 import com.perry.reader.view.base.BaseActivity;
@@ -38,9 +36,9 @@ public class LoginActivity extends BaseActivity {
         mModel = new VMUseLoginInfo(this);
         setBinddingView(R.layout.activity_login, NO_BINDDING, mModel);
 
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+//        AdView mAdView = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
     }
 
 

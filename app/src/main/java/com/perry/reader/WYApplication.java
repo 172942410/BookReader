@@ -6,11 +6,12 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+import android.os.Build;
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.allen.library.RxHttpUtils;
-import com.google.android.gms.ads.MobileAds;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.LoggingInterceptor;
 import com.perry.reader.utils.Constant;
@@ -65,12 +66,16 @@ public class WYApplication extends MultiDexApplication {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(new Intent(getAppContext(), BookDownloadService.class));
+        } else {
+            startService(new Intent(getAppContext(), BookDownloadService.class));
+        }
 
-        startService(new Intent(getAppContext(), BookDownloadService.class));
         initRxHttpUtils();
         initRefresh();
         initLoadingLayout();
-        MobileAds.initialize(this, "ca-app-pub-4448178060872498~1042836125");
+//        MobileAds.initialize(this, "ca-app-pub-4448178060872498~1042836125");
     }
 
     private void initLoadingLayout() {
@@ -130,11 +135,11 @@ public class WYApplication extends MultiDexApplication {
     }
 
     private void initRefresh() {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
             CircleHeader header = new CircleHeader(context);
             layout.setPrimaryColorsId(ThemeUtils.getThemeColorId(), R.color.white);
             return header;
         });
-        SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> new BallPulseFooter(context).setSpinnerStyle(SpinnerStyle.Translate));
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> new BallPulseFooter(context).setSpinnerStyle(SpinnerStyle.Translate));
     }
 }

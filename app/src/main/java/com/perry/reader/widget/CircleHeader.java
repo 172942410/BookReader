@@ -8,20 +8,23 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
+import com.lcodecore.extextview.DensityUtil;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshKernel;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * CircleRefresh
@@ -80,7 +83,7 @@ public class CircleHeader extends View implements RefreshHeader {
     }
 
     private void initView(Context context, AttributeSet attrs) {
-        setMinimumHeight(DensityUtil.dp2px(100));
+        setMinimumHeight(DensityUtil.dp2px(context,100));
         mBackPaint = new Paint();
         mBackPaint.setColor(0xff11bbff);
         mBackPaint.setAntiAlias(true);
@@ -91,7 +94,7 @@ public class CircleHeader extends View implements RefreshHeader {
         mOuterPaint.setAntiAlias(true);
         mOuterPaint.setColor(0xffffffff);
         mOuterPaint.setStyle(Paint.Style.STROKE);
-        mOuterPaint.setStrokeWidth(DensityUtil.dp2px(2f));
+        mOuterPaint.setStrokeWidth(DensityUtil.dp2px(context,2f));
         mPath = new Path();
     }
 
@@ -251,17 +254,29 @@ public class CircleHeader extends View implements RefreshHeader {
     }
 
     @Override
+    public void onMoving(boolean isDragging, float percent, int offset, int height, int maxDragHeight) {
+        if (mState != RefreshState.Refreshing) {
+            onPullingDown(percent, offset, height, maxDragHeight);
+        }
+    }
+
+    @Override
+    public void onReleased(@NonNull @NotNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
+
+    }
+
+//    //    @Override
     public void onPullingDown(float percent, int offset, int headHeight, int extendHeight) {
         mHeadHeight = headHeight;
         mWaveHeight = Math.max(offset - headHeight, 0) * .8f;
     }
-
-    @Override
-    public void onReleasing(float percent, int offset, int headHeight, int extendHeight) {
-        if (mState != RefreshState.Refreshing) {
-            onPullingDown(percent, offset, headHeight, extendHeight);
-        }
-    }
+//
+////    @Override
+//    public void onReleasing(float percent, int offset, int headHeight, int extendHeight) {
+//        if (mState != RefreshState.Refreshing) {
+//            onPullingDown(percent, offset, headHeight, extendHeight);
+//        }
+//    }
 
     @Override
     public void onStateChanged(RefreshLayout refreshLayout, RefreshState oldState, RefreshState newState) {
@@ -346,6 +361,16 @@ public class CircleHeader extends View implements RefreshHeader {
         animator.setDuration(DURATION_FINISH);
         animator.start();
         return DURATION_FINISH;
+    }
+
+    @Override
+    public void onHorizontalDrag(float percentX, int offsetX, int offsetMax) {
+
+    }
+
+    @Override
+    public boolean isSupportHorizontalDrag() {
+        return false;
     }
 
     @Override

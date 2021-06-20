@@ -81,8 +81,7 @@
                                 android:visibility="gone"
                                 tools:visibility="visible">
 
-
-                                <android.support.v7.widget.AppCompatImageView
+                                <androidx.appcompat.widget.AppCompatImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     app:srcCompat="@drawable/ic_warn"/>
@@ -285,7 +284,7 @@
             app:fab_labelStyle="@style/menu_labels_style">
 
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_edit_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -296,7 +295,7 @@
                 app:fab_size="mini"
                 app:fab_title="修改用户密码"/>
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_edit_userinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

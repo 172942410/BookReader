@@ -3,9 +3,9 @@ package com.perry.reader.view.fragment.impl;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +21,7 @@ import com.perry.reader.view.fragment.IBookInfo;
 import com.perry.reader.viewmodel.fragment.VMBooksInfo;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.weavey.loading.lib.LoadingLayout;
 
 import java.util.ArrayList;
@@ -76,9 +76,9 @@ public class BooksInfoFragment extends BaseFragment implements IBookInfo {
         getder = getArguments().getString("getder");
         type = getArguments().getString("type");
 
-        mRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+        mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(RefreshLayout refreshlayout) {
                 ++loadPage;
                 mModel.getBooks(type, titleName, loadPage);
             }
@@ -131,7 +131,7 @@ public class BooksInfoFragment extends BaseFragment implements IBookInfo {
     @Override
     public void stopLoading() {
         mRefreshLayout.finishRefresh();
-        mRefreshLayout.finishLoadmore();
+        mRefreshLayout.finishLoadMore();
     }
 
     @Override

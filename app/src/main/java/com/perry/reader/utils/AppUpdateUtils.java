@@ -1,14 +1,12 @@
 package com.perry.reader.utils;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
 
-import com.afollestad.materialdialogs.DialogAction;
+import androidx.core.content.FileProvider;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.allen.library.RxHttpUtils;
 import com.allen.library.download.DownloadObserver;

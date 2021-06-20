@@ -20,7 +20,7 @@
         android:layout_below="@+id/status_bar">
 
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_toolbar_back"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -45,7 +45,7 @@
             android:textSize="18sp"/>
 
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_toolbar_more"
             android:layout_width="32dp"
             android:layout_height="32dp"

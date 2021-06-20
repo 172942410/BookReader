@@ -56,9 +56,9 @@ public class BookChapterBeanDao extends AbstractDao<BookChapterBean, Void> {
                 "\"BOOK_ID\" TEXT," + // 3: bookId
                 "\"UNREADBLE\" INTEGER NOT NULL );"); // 4: unreadble
         // Add Indexes
-        db.execSQL("CREATE INDEX " + constraint + "IDX_BOOK_CHAPTER_BEAN_TASK_NAME ON BOOK_CHAPTER_BEAN" +
+        db.execSQL("CREATE INDEX " + constraint + "IDX_BOOK_CHAPTER_BEAN_TASK_NAME ON \"BOOK_CHAPTER_BEAN\"" +
                 " (\"TASK_NAME\" ASC);");
-        db.execSQL("CREATE INDEX " + constraint + "IDX_BOOK_CHAPTER_BEAN_BOOK_ID ON BOOK_CHAPTER_BEAN" +
+        db.execSQL("CREATE INDEX " + constraint + "IDX_BOOK_CHAPTER_BEAN_BOOK_ID ON \"BOOK_CHAPTER_BEAN\"" +
                 " (\"BOOK_ID\" ASC);");
     }
 

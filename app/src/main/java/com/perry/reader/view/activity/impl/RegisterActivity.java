@@ -2,11 +2,11 @@ package com.perry.reader.view.activity.impl;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.perry.reader.R;
 import com.perry.reader.utils.ToastUtils;
 import com.perry.reader.view.activity.IUserRegister;
