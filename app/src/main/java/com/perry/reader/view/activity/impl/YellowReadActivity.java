@@ -38,6 +38,7 @@ import com.perry.reader.db.entity.YellowCollBookBean;
 import com.perry.reader.db.helper.BookChapterHelper;
 import com.perry.reader.db.helper.CollBookHelper;
 import com.perry.reader.db.helper.YellowCollBookHelper;
+import com.perry.reader.interfaces.IViewLoadedComplete;
 import com.perry.reader.model.BookChaptersBean;
 import com.perry.reader.model.YellowBookBean;
 import com.perry.reader.utils.BrightnessUtils;
@@ -228,8 +229,12 @@ public class YellowReadActivity extends BaseActivity implements IBookChapters {
         StatusBarUtils.transparencyBar(this);
 
         mReadDlSlide.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-        initData();
+        mPageLoader.setInitViewFinishedCallback(new IViewLoadedComplete() {
+            @Override
+            public void viewLoaded() {
+                initData();
+            }
+        });
 
         //更多设置dialog
         mSettingDialog = new YellowReadSettingDialog(this, mPageLoader);

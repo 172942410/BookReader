@@ -19,6 +19,7 @@ import com.perry.reader.db.entity.BookRecordBean;
 import com.perry.reader.db.entity.CollBookBean;
 import com.perry.reader.db.entity.YellowCollBookBean;
 import com.perry.reader.db.helper.BookRecordHelper;
+import com.perry.reader.interfaces.IViewLoadedComplete;
 import com.perry.reader.utils.Constant;
 import com.perry.reader.utils.IOUtils;
 import com.perry.reader.utils.ReadSettingManager;
@@ -110,7 +111,7 @@ public abstract class YellowPageLoader {
     //上一章的记录
     private int mLastChapter = 0;
     //书籍绘制区域的宽高
-    private int mVisibleWidth;
+    private int mVisibleWidth ;
     private int mVisibleHeight;
     //应用的宽高
     private int mDisplayWidth;
@@ -485,6 +486,10 @@ public abstract class YellowPageLoader {
             mCurChapterPos = mChapterList.size()-1;
         }
         mCurPageList = loadPageList(mCurChapterPos);
+        if(mCurPageList == null){
+            Log.e(TAG,"列表获取失败");
+            return;
+        }
         //进行预加载
         preLoadNextChapter();
         //加载完成
@@ -555,9 +560,16 @@ public abstract class YellowPageLoader {
         int titleLinesCount = 0;
         boolean isTitle = true; //不存在没有 Title 的情况，所以默认设置为 true。
         String paragraph = chapter.getTitle();//默认展示标题
+        if(mVisibleWidth == 0){
+            Log.e(TAG,"mVisibleWidth 获取失败");
+            return null;
+        }
+        if(mVisibleHeight == 0){
+            Log.e(TAG,"mVisibleHeight 获取失败");
+            return null;
+        }
         try {
             while (isTitle || (paragraph = br.readLine()) != null) {
-
                 //重置段落
                 if (!isTitle) {
                     paragraph = paragraph.replaceAll("\\s", "");
@@ -568,7 +580,6 @@ public abstract class YellowPageLoader {
                     //设置 title 的顶部间距
                     rHeight -= mTitlePara;
                 }
-
                 int wordCount = 0;
                 String subStr = null;
                 while (paragraph.length() > 0) {
@@ -847,7 +858,6 @@ public abstract class YellowPageLoader {
         //获取PageView的宽高
         mDisplayWidth = w;
         mDisplayHeight = h;
-
         //获取内容显示位置的大小
         mVisibleWidth = mDisplayWidth - mMarginWidth * 2;
         mVisibleHeight = mDisplayHeight - mMarginHeight * 2;
@@ -863,6 +873,9 @@ public abstract class YellowPageLoader {
         }
 
         mPageView.drawCurPage(false);
+        if(iViewLoadedComplete != null){
+            iViewLoadedComplete.viewLoaded();
+        }
     }
 
     //翻阅上一页
@@ -1230,7 +1243,10 @@ public abstract class YellowPageLoader {
         //由于解析失败，让其退出
         return true;
     }
-
+    protected IViewLoadedComplete iViewLoadedComplete;
+    public void setInitViewFinishedCallback(IViewLoadedComplete iViewLoadedComplete){
+        this.iViewLoadedComplete = iViewLoadedComplete;
+    }
     /*****************************************interface*****************************************/
 
     public interface OnPageChangeListener {
