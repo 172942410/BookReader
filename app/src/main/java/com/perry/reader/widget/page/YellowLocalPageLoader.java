@@ -120,7 +120,8 @@ public class YellowLocalPageLoader extends YellowPageLoader {
     //采用的是随机读取
     private void loadBook(String fileName) throws IOException {
         //获取文件编码
-        mCharset = FileUtils.getCharset(fileName,true);
+//        mCharset = FileUtils.getCharset(fileName,true);
+        mCharset = Charset.GBK;
         //查找章节，分配章节
         loadChapters();
     }
@@ -276,7 +277,8 @@ public class YellowLocalPageLoader extends YellowPageLoader {
                     } else {
                         TxtChapter chapter = new TxtChapter();
                         chapter.title = "第" + blockPos + "章" + "(" + chapterPos + ")";
-                        chapter.start = curOffset + chapterOffset + 1;
+//                        chapter.start = curOffset + chapterOffset + 1;
+                        chapter.start = curOffset + chapterOffset;
                         chapter.end = curOffset + length;
                         chapters.add(chapter);
                         strLength = 0;
